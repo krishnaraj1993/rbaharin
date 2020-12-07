@@ -1,0 +1,224 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Property
+{% endblock %}
+
+{% block body %}
+	<form method="post" id="propertyTypeForm" class="needs-validation was-validated" novalidate>
+		<div class="tab-vertical-outline">
+			<ul class="nav nav-tabs " id="myTab4" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link  active show" id="home-outline-verti-tab" data-toggle="tab" href="#home-outline-vertical" role="tab" aria-controls="home" aria-selected="false">Basic Information</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="profile-outline-verti-tab" data-toggle="tab" href="#profile-outline-vertical" role="tab" aria-controls="profile" aria-selected="false">More Information</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="contact-outline-verti-tab" data-toggle="tab" href="#contact-outline-vertical" role="tab" aria-controls="contact" aria-selected="true">Assets Manage</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" id="feature-outline-verti-tab" data-toggle="tab" href="#feature-outline-vertical" role="tab" aria-controls="feature" aria-selected="true">Property Features</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" id="price-outline-verti-tab" data-toggle="tab" href="#price-outline-vertical" role="tab" aria-controls="price" aria-selected="true">Property Price</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" id="final-outline-verti-tab" data-toggle="tab" href="#final-outline-vertical" role="tab" aria-controls="final" aria-selected="true">Tags and Final submit</a>
+				</li>
+
+
+			</ul>
+			<div
+				class="tab-content" id="myTabContent4">
+
+				<!--------------------------------TAB 1------------------------------------>
+				<div class="tab-pane fade active show" id="home-outline-vertical" role="tabpanel" aria-labelledby="home-outline-verti-tab">
+					<div class="form-group">
+						<label for="inputText3" class="col-form-label">Title</label>
+						<input type="hidden" value="{{ Property['id'] }}" name="id">
+						<input id="title" name="title" value="{{ Property['Title'] }}" type="text" class="form-control" required>
+					</div>
+
+
+					<div class="form-group">
+						<label for="exampleFormControlTextarea1">About Property</label>
+						<textarea class="form-control" name="about" id="about" rows="3" required>{{ Property['description'] }}</textarea>
+					</div>
+
+					<div class="form-group">
+						<label for="input-select">Property Type</label>
+						<select class="form-control" id="ptype" name="ptype" required>
+							<option value="">Property Type</option>
+							{% for key, status in propertyType %}
+								{% if status['id']== Property['ptype'] %}
+									<option value="{{status['id']}}" selected>{{status['name']}}</option>
+								{% else %}
+									<option value="{{status['id']}}">{{status['name']}}</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="input-select">Property Status</label>
+						<select class="form-control" id="status" name="status" required>
+							<option value="">Property Status</option>
+							{% for key, status in propertyStatus %}
+								{% if status['id']== Property['pstatus'] %}
+									<option value="{{status['id']}}" selected>{{status['name']}}</option>
+								{% else %}
+									<option value="{{status['id']}}">{{status['name']}}</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<!--------------------------------+++------------------------------------>
+
+
+				<div class="tab-pane fade" id="profile-outline-vertical" role="tabpanel" aria-labelledby="profile-outline-verti-tab">
+					<div class="form-group">
+						<label for="input-select">EWA</label>
+						<select class="form-control" id="ewa" name="ewa" required>
+							<option value="">select EWA</option>
+							{% for key, value in Ewa %}
+								{% if value['id']== Property['ewa'] %}
+									<option value="{{value['id']}}" selected>{{value['name']}}</option>
+								{% else %}
+									<option value="{{value['id']}}">{{value['name']}}</option>
+								{% endif %}
+
+							{% endfor %}
+						</select>
+					</div>
+
+
+					<div class="form-group">
+						<label for="exampleFormControlTextarea1">Furnishing</label>
+						<select class="form-control" id="furnishing" name="furnishing" required>
+							<option value="">select Furnishing</option>
+							{% for key, value in Furnishing %}
+								{% if value['id']== Property['furnishing'] %}
+									<option value="{{value['id']}}" selected>{{value['name']}}</option>
+								{% else %}
+									<option value="{{value['id']}}">{{value['name']}}</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="input-select">Property Value</label>
+						<input id="pvalue" name="pvalue" type="text" value="{{ Property['value'] }}" class="form-control" required>
+					</div>
+
+					<div class="form-group">
+						<label for="input-select">mortgage</label>
+						<input id="mortgage" name="mortgage" type="text" value="{{ Property['Mortgage'] }}" class="form-control" required>
+					</div>
+
+					<div class="form-group">
+						<label for="input-select">Select Location</label>
+						<input id="location" name="location" type="text" value="{{ Property['location'] }}" class="form-control" required>
+					</div>
+
+					<div class="form-row">
+						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+							<label for="validationCustom03">City</label>
+							<input type="text" class="form-control" id="pcity" name="pcity" placeholder="City" required>
+							<div class="invalid-feedback">
+								Please provide a valid city.
+							</div>
+						</div>
+						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+							<label for="validationCustom04">State</label>
+							<input type="text" class="form-control" id="pstate" name="pstate" placeholder="State" required>
+							<div class="invalid-feedback">
+								Please provide a valid state.
+							</div>
+						</div>
+						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+							<label for="validationCustom05">Zip</label>
+							<input type="text" class="form-control" id="pzip" name="pzip" placeholder="Zip" required>
+							<div class="invalid-feedback">
+								Please provide a valid zip.
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+				<div class="tab-pane fade" id="price-outline-vertical" role="tabpanel" aria-labelledby="price-outline-verti-tab">
+					<div class="form-group">
+						<label for="pinvestment" class="col-form-label">Investment</label>
+						<input id="pinvestment" type="text" value="{{ Property['investment'] }}" class="form-control" required>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="contact-outline-vertical" role="tabpanel" aria-labelledby="contact-outline-verti-tab">
+					<div class="card-body imageList">
+						<img src="{{ asset('assets/appImage/plus.png') }}" class="img-fluid mr-3 clickimagePlus" alt="Responsive image">
+						<input type="file" id="imageAssets" name="imageAssets" style="display:none" onchange="setimage(this)">
+						<input type="hidden" value="0" id="imageCounts">
+						<img src="http://via.placeholder.com/200x150" id="omg" class="img-fluid mr-3" alt="Responsive image">
+					</div>
+				</div>
+				<div class="tab-pane" id="feature-outline-vertical" role="tabpanel" aria-labelledby="feature-outline-verti-tab">
+
+					<div class="form-group">
+						<label for="input-select">Bed Rooms</label>
+						<input id="bedRooms" name="bedRooms" value="{{ Property['bedRooms'] }}" type="number" class="form-control" required>
+					</div>
+
+					<div class="form-group">
+						<label for="input-select">Bath Rooms</label>
+						<input id="bathRooms" name="bathRooms" value="{{ Property['BathRooms'] }}" type="number" class="form-control" required>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-12 col-sm-3 col-form-label text-sm-right">Area (Inch)</label>
+						<div class="col-sm-4 col-lg-3 mb-3 mb-sm-0">
+							<input id="area_inch" name="area_heigh" type="text" value="{{ Property['AreaSize'] }}" ="" placeholder="Height" class="form-control" required>
+						</div>
+						<div class="col-sm-4 col-lg-3">
+							<input type="text" ="" id="area_inch" name="area_weight" placeholder="Weight" class="form-control" required>
+						</div>
+					</div>
+
+					<div>
+						<label for="input-select">Property Features </label>
+						<select id='keep-order' name="pfeatures[]" multiple='multiple' required>
+							{% for key, value in Features %}
+								<option value="{{value['id']}}" {% if value['id'] in Property['features'] %}selected{% endif %}>{{value['name']}}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="tab-pane" id="final-outline-vertical" role="tabpanel" aria-labelledby="final-outline-verti-tab">
+					<div class="form-group">
+						<label for="inputText3" class="col-form-label">Tags</label>
+						<input id="tags" name="tags" type="text" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label for="inputText3" class="col-form-label">Property Related To</label>
+						<select class="form-control" id="property_relat" name="property_relat" required>
+							<option>Select Property</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="custom-control custom-checkbox">
+							<input type="checkbox" id="property_suggetion" name="property_suggetion" checked="" class="custom-control-input" required><span class="custom-control-label">Enable Suggetion
+							</span>
+						</label>
+					</div>
+					<div class="form-group">
+						<button type="submit" id="submitProperty" class="btn btn-primary">Submit Property</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</form>
+{% endblock %}

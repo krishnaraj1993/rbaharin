@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Users
+{% endblock %}
+
+{% block body %}
+
+	<br/>
+	<div class="body-wrapper" style="background-color: white;padding: 22px;">
+		<nav class="navbar navbar-expand-sm " style="background-color: #e1e1e1 !important;">
+			<ul class="navbar-nav">
+				<li class="nav-item" style="border-bottom: none;">
+					<a href="new-plan">
+						<button type="button" class="btn btn-outline-primary">Add new plan</button>
+					</a>
+					
+				</li>
+
+			</ul>
+		</nav>
+
+		{{ tableData|raw }}
+
+		<div class="pagination" style="background-color: whitesmoke;">
+			<a href="#">&laquo;</a>
+			<a href="#">1</a>
+			<a href="#" class="active">2</a>
+			<a href="#">3</a>
+			<a href="#">4</a>
+			<a href="#">5</a>
+			<a href="#">6</a>
+			<a href="#">&raquo;</a>
+		</div>
+	</div>
+{% endblock %}

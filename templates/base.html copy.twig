@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+	<head>
+
+		<meta charset="UTF-8">
+		<title>
+			ContnetBox |
+			{% block title %}{% endblock %}
+		</title>
+		{% block stylesheets %}
+
+
+			<link
+			rel="canonical" href="#">
+
+			<!-- Bootstrap core CSS -->
+			<link
+			href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+			<!-- Custom styles for this template -->
+			<link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+			<link href="{{ asset('css/table.css') }}" rel="stylesheet">
+			<link href="{{ asset('css/formdesign.css') }}" rel="stylesheet">
+		{% endblock %}
+	</head>
+
+	<body>
+		<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0" style="background-color: #570c0c !important;">
+			<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Reality Bahrain</a>
+			<ul class="navbar-nav px-3" style="background-color: #9d1313;">
+				<li class="nav-item text-nowrap" style="border-bottom: none;">
+					<a class="nav-link" href="/logout" style="color: white;">Sign out</a>
+				</li>
+			</ul>
+		</nav>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-2 col-md-2 d-none d-md-block">
+					<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+						<div class="sidebar-sticky" style="position: relative;">
+							<ul class="nav flex-column">
+
+								{% for key,menu in app.session.get('menulist') %}
+									<li class="nav-item">
+										<a class="nav-link active" href="{{menu}}">
+											<span data-feather="home"></span>
+											{{ key }}
+											<span class="sr-only">(current)</span>
+										</a>
+									</li>
+								{% endfor %}
+								<!--<li class="nav-item">
+																								<a class="nav-link" href="/application/users">
+																									<span data-feather="layers"></span>
+																									Users
+																								</a>
+																							</li>-->
+							</ul>
+
+						</div>
+					</nav>
+				</div>
+				<div class="col-sm-10 col-md-10 d-none d-md-block"> {% block body %}{% endblock %}
+					</div>
+					{% block javascripts %}
+
+						<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+
+						<script src="{{ asset('js/lib/jquery.cookie.js') }}"></script>
+						<script src="{{ asset('js/lib/json3.min.js') }}"></script>
+						<script src="{{ asset('js/jquery.SuperCookie.min.js') }}"></script>
+						<script src="{{ asset('js/script.js') }}"></script>
+						<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+						<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+					{% endblock %}
