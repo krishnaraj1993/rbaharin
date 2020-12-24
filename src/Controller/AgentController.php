@@ -28,11 +28,11 @@ class AgentController extends AbstractController
         $actionsList = [];
         foreach ($userList as $key => $value) {
             $userArry[] = array(
-                $value['firstname'] => array('name' => ucfirst($value['firstname']), 'link' => '' . $value['id'] . '/dashboard'),
-                $value['lastname'] => array('name' => $value['lastname']),
-                $value['userId']['email'] => array('name' => $value['userId']['email']),
-                $value['mobilenumber'] => array('name' => $value['mobilenumber']),
-                $value['status'] == '1' ? 'ACTIVE' : 'INACTIVE' => array('name' => $value['status'] == '1' ? 'ACTIVE' : 'INACTIVE'),
+                $value['firstname'] => array('type'=>'text', 'name' => ucfirst($value['firstname']), 'link' => '' . $value['id'] . '/dashboard'),
+                $value['lastname'] => array('type'=>'text', 'name' => $value['lastname']),
+                $value['userId']['email'] => array('type'=>'text', 'name' => $value['userId']['email']),
+                $value['mobilenumber'] => array('type'=>'text', 'name' => $value['mobilenumber']),
+                $value['status'] == '1' ? 'ACTIVE' : 'INACTIVE' => array('type'=>'text', 'name' => $value['status'] == '1' ? 'ACTIVE' : 'INACTIVE'),
             );
             $actionsList[] = array('Update' => array('name' => 'success', 'link' => '/application/new-users?id=' . $value['id']), 'Delete' => array('name' => 'danger', 'link' => '#'));
         }

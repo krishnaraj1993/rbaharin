@@ -128,21 +128,21 @@
 					<div class="form-row">
 						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
 							<label for="validationCustom03">City</label>
-							<input type="text" class="form-control" id="pcity" name="pcity" placeholder="City" required>
+							<input type="text" class="form-control" id="pcity" name="pcity" value="{{ Property['city'] }}" placeholder="City" required>
 							<div class="invalid-feedback">
 								Please provide a valid city.
 							</div>
 						</div>
 						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
 							<label for="validationCustom04">State</label>
-							<input type="text" class="form-control" id="pstate" name="pstate" placeholder="State" required>
+							<input type="text" class="form-control" id="pstate" name="pstate" value="{{ Property['state'] }}" placeholder="State" required>
 							<div class="invalid-feedback">
 								Please provide a valid state.
 							</div>
 						</div>
 						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
 							<label for="validationCustom05">Zip</label>
-							<input type="text" class="form-control" id="pzip" name="pzip" placeholder="Zip" required>
+							<input type="text" class="form-control" id="pzip" name="pzip" value="{{ Property['zip'] }}" placeholder="Zip" required>
 							<div class="invalid-feedback">
 								Please provide a valid zip.
 							</div>
@@ -151,18 +151,38 @@
 
 					</div>
 				</div>
+				
 				<div class="tab-pane fade" id="price-outline-vertical" role="tabpanel" aria-labelledby="price-outline-verti-tab">
 					<div class="form-group">
+						<label for="pinvestment" class="col-form-label">Building Name</label>
+						<input id="pbuildingName" name="pbuildingName" type="text" value="{{ Property['buildingName'] }}" class="form-control" required>
+					</div>
+					<div class="form-group">
 						<label for="pinvestment" class="col-form-label">Investment</label>
-						<input id="pinvestment" type="text" value="{{ Property['investment'] }}" class="form-control" required>
+						<input id="pinvestment" name="pinvestment" type="text" value="{{ Property['investment'] }}" class="form-control" required>
 					</div>
 				</div>
 				<div class="tab-pane fade" id="contact-outline-vertical" role="tabpanel" aria-labelledby="contact-outline-verti-tab">
 					<div class="card-body imageList">
-						<img src="{{ asset('assets/appImage/plus.png') }}" class="img-fluid mr-3 clickimagePlus" alt="Responsive image">
 						<input type="file" id="imageAssets" name="imageAssets" style="display:none" onchange="setimage(this)">
 						<input type="hidden" value="0" id="imageCounts">
-						<img src="http://via.placeholder.com/200x150" id="omg" class="img-fluid mr-3" alt="Responsive image">
+						<button type="button" class="btn btn-primary btn-lg btn-block clickimagePlus">Upload Images</button>
+						<table class="table table-striped table-bordered first dataTable" id="imagelists">
+							<tr>
+								<th>id</th>
+								<th style="width: 25%;">slno</th>
+								<th>image</th>
+								<th>action</th>
+							</tr>
+							{% for  key,Properties in Property['assets'] %}
+								<tr>
+								<td>{{ loop.index }}</td>
+								<td><input type="number" value="{{ key }}" style="width: 80%;"  name="assetsnumber[{{ Properties['id'] }}]"/></td>
+								<td><img src="{{ asset( Properties['url'] ) }}" width="100px" height="100px" class="img-fluid mr-3" />
+								</td><td><button type="button" data-id="{{ Properties['id'] }}" class="btn btn-primary btn-sm delete-assets">x</button></td>
+								</tr>
+    						{% endfor %}
+						</table>
 					</div>
 				</div>
 				<div class="tab-pane" id="feature-outline-vertical" role="tabpanel" aria-labelledby="feature-outline-verti-tab">
@@ -180,18 +200,19 @@
 					<div class="form-group row">
 						<label class="col-12 col-sm-3 col-form-label text-sm-right">Area (Inch)</label>
 						<div class="col-sm-4 col-lg-3 mb-3 mb-sm-0">
-							<input id="area_inch" name="area_heigh" type="text" value="{{ Property['AreaSize'] }}" ="" placeholder="Height" class="form-control" required>
+							<input id="area_inch" name="area_heigh" type="text" value="{{ Property['AreaHight'] }}" placeholder="Height" class="form-control" required>
 						</div>
 						<div class="col-sm-4 col-lg-3">
-							<input type="text" ="" id="area_inch" name="area_weight" placeholder="Weight" class="form-control" required>
+							<input type="text" ="" id="area_inch" name="area_weight" value="{{ Property['AreaWidth'] }}" placeholder="Weight" class="form-control" required>
 						</div>
 					</div>
 
 					<div>
-						<label for="input-select">Property Features </label>
+						<label for="input-select">Property Features
+						</label>
 						<select id='keep-order' name="pfeatures[]" multiple='multiple' required>
 							{% for key, value in Features %}
-								<option value="{{value['id']}}" {% if value['id'] in Property['features'] %}selected{% endif %}>{{value['name']}}</option>
+								<option value="{{value['id']}}" {% if value['id'] in Property['features'] %} selected {% endif %}>{{value['name']}}</option>
 							{% endfor %}
 						</select>
 					</div>

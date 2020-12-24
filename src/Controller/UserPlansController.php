@@ -33,18 +33,21 @@ class UserPlansController extends AbstractController
 
         foreach ($userplans as $key => $value) {
             $userArry[] = array(
-                $value['title'] . "_1" => array('name' => ucfirst($value['title']), 'link' => "#"),
-                $value['description'] . "_2" => array('name' => $value['description'], 'style' => 'width: 20%'),
-                $value['bhd'] . "_3" => array('name' => "BHD ".$value['bhd']),
-                $value['sixMonthPackage'] . "_4" => array('name' => "BHD ".$value['sixMonthPackage']),
-                $value['annualPackage'] . "_5" => array('name' => "BHD ".$value['annualPackage']),
-                $value['promoAnnual'] . "_6" => array('name' => $value['promoAnnual']),
-                $value['listing'] . "_7" => array('name' => $value['listing']),
-                $value['crm'] . "_8" => array('name' => $value['crm']==1?"Yes":"No"),
-                $value['agents'] . "_9" => array('name' => $value['agents']),
+                $value['title'] . "_1" => array('type'=>'text','name' => ucfirst($value['title']), 'link' => "#"),
+                $value['description'] . "_2" => array('type'=>'text','name' => $value['description'], 'style' => 'width: 20%'),
+                $value['bhd'] . "_3" => array('type'=>'text','name' => "BHD ".$value['bhd']),
+                $value['sixMonthPackage'] . "_4" => array('type'=>'text','name' => "BHD ".$value['sixMonthPackage']),
+                $value['annualPackage'] . "_5" => array('type'=>'text','name' => "BHD ".$value['annualPackage']),
+                $value['promoAnnual'] . "_6" => array('type'=>'text','name' => $value['promoAnnual']),
+                $value['listing'] . "_7" => array('type'=>'text','name' => $value['listing']),
+                $value['crm'] . "_8" => array('type'=>'text','name' => $value['crm']==1?"Yes":"No"),
+                $value['agents'] . "_9" => array('type'=>'text','name' => $value['agents']),
 
             );
-            $actionsList[] = array('Update' => array('name' => 'info', 'link' => 'new-plan/' . $value['id']), 'Delete' => array('name' => 'danger', 'link' => '#'));
+            $actionsList[] = array(
+                'Update' => array('type'=>'button','name' => 'info', 'link' => 'new-plan/' . $value['id']),
+                'Delete' => array('type'=>'button','name' => 'danger', 'link' => '#')
+            );
         }
         $tableGenerate->tableBody = $userArry;
         $tableGenerate->tableActions = $actionsList;

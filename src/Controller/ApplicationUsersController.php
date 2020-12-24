@@ -31,12 +31,12 @@ class ApplicationUsersController extends AbstractController
         $actionsList = [];
         foreach ($userList as $key => $value) {
             $userArry[] = array(
-                $value['firstname'] => array('name' => ucfirst($value['firstname']), 'link' => ($value['userId']['roles'][0] == 'ROLE_AGENCY') ? 'agent/' . $value['id'] : 'fsbo/' . $value['id'] . '/dashboard'),
-                $value['lastname'] => array('name' => $value['lastname']),
-                $value['userId']['email'] => array('name' => $value['userId']['email']),
-                $value['userId']['roles'][0] => array('name' => $value['userId']['roles'][0]),
-                $value['mobilenumber'] => array('name' => $value['mobilenumber']),
-                $value['status'] == '1' ? 'ACTIVE' : 'INACTIVE' => array('name' => $value['status'] == '1' ? 'ACTIVE' : 'INACTIVE'),
+                $value['firstname'] => array('type'=>'text', 'name' => ucfirst($value['firstname']), 'link' => ($value['userId']['roles'][0] == 'ROLE_AGENCY') ? 'agent/' . $value['id'] : 'fsbo/' . $value['id'] . '/dashboard'),
+                $value['lastname'] => array('type'=>'text', 'name' => $value['lastname']),
+                $value['userId']['email'] => array('type'=>'text', 'name' => $value['userId']['email']),
+                $value['userId']['roles'][0] => array('type'=>'text', 'name' => $value['userId']['roles'][0]),
+                $value['mobilenumber'] => array('type'=>'text', 'name' => $value['mobilenumber']),
+                $value['status'] == '1' ? 'ACTIVE' : 'INACTIVE' => array('type'=>'text', 'name' => $value['status'] == '1' ? 'ACTIVE' : 'INACTIVE'),
             );
             $actionsList[] = array('Update' => array('name' => 'info', 'link' => 'new-users?id=' . $value['id']), 'Delete' => array('name' => 'danger', 'link' => '#'));
         }
@@ -175,13 +175,15 @@ class ApplicationUsersController extends AbstractController
         $actionsList = [];
         foreach ($planList as $key => $value) {
             $planArry[] = array(
-                $value['firstname'] . "_1" => array('name' => ucfirst($value['firstname'].' '.$value['lastname'])),
-                $value['mobilenumber'] . "_2" => array('name' => $value['mobilenumber']),
-                $value['title'] . "_3" => array('name' => $value['title']),
-                $value['ptitle'] . "_4" => array('name' =>  $value['ptitle']),
+                $value['firstname'] . "_1" => array('type'=>'text', 'name' => ucfirst($value['firstname'].' '.$value['lastname'])),
+                $value['mobilenumber'] . "_2" => array('type'=>'text', 'name' => $value['mobilenumber']),
+                $value['title'] . "_3" => array('type'=>'text', 'name' => $value['title']),
+                $value['ptitle'] . "_4" => array('type'=>'text', 'name' =>  $value['ptitle']),
             );
             
-            $actionsList[] = array('View Details' => array('name' => 'info', 'link' => '#'), 'Approve' => array('name' => 'danger planUpdate-btn', 'custom' => 'data-plan="' . $value['plan'] . '"data-user="' . $value['user'] . '"', 'link' => '#'));
+            $actionsList[] = array(
+                'View Details' => array('type' => 'button', 'name' => 'info', 'link' => '#'), 
+                'Approve' => array('type' => 'button', 'name' => 'danger planUpdate-btn', 'custom' => 'data-plan="' . $value['plan'] . '"data-user="' . $value['user'] . '"', 'link' => '#'));
         }
         $tableGenerate->tableBody = $planArry;
         $tableGenerate->tableActions = $actionsList;
@@ -220,10 +222,10 @@ class ApplicationUsersController extends AbstractController
         $actionsList = [];
         foreach ($planList as $key => $value) {
             $planArry[] = array(
-                $value['title'] . "_1" => array('name' => ucfirst($value['title'])),
-                $value['description'] . "_2" => array('name' => $value['description']),
-                $value['bhd'] . "_3" => array('name' => 'BHD ' . $value['bhd']),
-                $value['sixMonthPackage'] . "_4" => array('name' => 'BHD ' . $value['sixMonthPackage']),
+                $value['title'] . "_1" => array('type'=>'text', 'name' => ucfirst($value['title'])),
+                $value['description'] . "_2" => array('type'=>'text', 'name' => $value['description']),
+                $value['bhd'] . "_3" => array('type'=>'text', 'name' => 'BHD ' . $value['bhd']),
+                $value['sixMonthPackage'] . "_4" => array('type'=>'text', 'name' => 'BHD ' . $value['sixMonthPackage']),
             );
             $rowActionsAry['config'][]['tr'] = array('style' => $userArry['plan']->getId() == $value['id'] ? "background-color: #b1d2b1;" : "");
             $actionsList[] = array('View Details' => array('name' => 'info', 'link' => 'new-users?id=' . $value['id']), 'Activate' => array('name' => 'danger activate-btn', 'custom' => 'data-id="' . $value['id'] . '"', 'link' => '#'));

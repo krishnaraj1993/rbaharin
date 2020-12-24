@@ -21,14 +21,9 @@
 		{{ tableData|raw }}
 
 		<div class="pagination" style="background-color: whitesmoke;">
-			<a href="#">&laquo;</a>
-			<a href="#">1</a>
-			<a href="#" class="active">2</a>
-			<a href="#">3</a>
-			<a href="#">4</a>
-			<a href="#">5</a>
-			<a href="#">6</a>
-			<a href="#">&raquo;</a>
+			<a href="?page={{ page - 1 }}">&laquo;</a>
+			<a href="#" class="active">{{page}}</a>
+			<a href="?page={{ page + 1 }}">&raquo;</a>
 		</div>
 	</div>
 {% endblock %}

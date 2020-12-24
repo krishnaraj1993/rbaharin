@@ -9,6 +9,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 use App\Entity\ApplicationUsers;
 use App\Entity\UserPlan;
 use App\Entity\Users;
@@ -80,9 +82,8 @@ class AdminController extends AbstractController
     ): Response {
         try {
             $userProfile = $this->getDoctrine()->getRepository(ApplicationUsers::class)->profile($id);
-
             return $this->render('admin/profile.html.twig', [
-                'data' => $userProfile,
+                'data' => $userProfile[0],
             ]);
         } catch (Exception $e) {
             return $response = new JsonResponse(['result' => 0, 'message'=>'Plan updation fail']);
@@ -90,4 +91,33 @@ class AdminController extends AbstractController
         
     }
 
+    /**
+     * @Route("/application/{id}/change-password", name="user_change_password")
+     */
+    public function userChangePassword(
+        $id,
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder,
+        UserFunctionService $userFunctionService
+    ): Response {
+        try {
+            $postData = $request->request->all();
+            $user = $this->get('security.token_storage')->getToken()->getUser();
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $postData['plainPassword']
+                )
+            );
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $this->addFlash('success', 'Password changed successfully');
+            return $this->redirectToRoute('user_profile',['id' => $id]);
+        } catch (Exception $e) {
+            $this->addFlash('error', 'Error on Password changing process');
+            return $response = new JsonResponse(['result' => 0, 'message'=>'Plan updation fail']);
+        }
+        
+    }
 }

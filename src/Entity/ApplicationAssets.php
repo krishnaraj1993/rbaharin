@@ -42,6 +42,11 @@ class ApplicationAssets
      */
     private $property;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $slno;
+
 
     public function getId(): ?int
     {
@@ -104,6 +109,18 @@ class ApplicationAssets
     public function setProperty(?Property $property): self
     {
         $this->property = $property;
+
+        return $this;
+    }
+
+    public function getSlno(): ?int
+    {
+        return $this->slno;
+    }
+
+    public function setSlno(int $slno): self
+    {
+        $this->slno = $slno;
 
         return $this;
     }

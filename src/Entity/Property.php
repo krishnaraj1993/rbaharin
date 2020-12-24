@@ -90,9 +90,14 @@ class Property
     private $BathRooms;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(type="integer", length=45)
      */
-    private $AreaSize;
+    private $AreaWidth;
+
+     /**
+     * @ORM\Column(type="integer", length=45)
+     */
+    private $AreaHight;
 
     /**
      * @ORM\Column(type="date")
@@ -133,6 +138,11 @@ class Property
      * @ORM\OneToMany(targetEntity=PropertyDetails::class, mappedBy="parent")
      */
     private $propertyDetails;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $status;
 
     public function __construct()
     {
@@ -327,14 +337,26 @@ class Property
         return $this;
     }
 
-    public function getAreaSize(): ?string
+    public function getAreaWidth(): ?int
     {
-        return $this->AreaSize;
+        return $this->AreaWidth;
     }
 
-    public function setAreaSize(string $AreaSize): self
+    public function setAreaWidth(int $AreaWidth): self
     {
-        $this->AreaSize = $AreaSize;
+        $this->AreaWidth = $AreaWidth;
+
+        return $this;
+    }
+
+    public function getAreaHeight(): ?int
+    {
+        return $this->AreaHeight;
+    }
+
+    public function setAreaHeight(int $AreaHeight): self
+    {
+        $this->AreaHeight = $AreaHeight;
 
         return $this;
     }
@@ -467,6 +489,18 @@ class Property
                 $propertyDetail->setParent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

@@ -36,10 +36,10 @@ class FsboController extends AbstractController
         $actionsList = [];
         foreach ($planList as $key => $value) {
             $planArry[] = array(
-                $value['title']."_1" => array('name' => ucfirst($value['title'])),
-                $value['description']."_2" => array('name' => $value['description']),
-                $value['bhd']."_3" => array('name' => $value['bhd']),
-                $value['sixMonthPackage']."_4" => array('name' => $value['sixMonthPackage']),
+                $value['title']."_1" => array('type'=>'text', 'name' => ucfirst($value['title'])),
+                $value['description']."_2" => array('type'=>'text', 'name' => $value['description']),
+                $value['bhd']."_3" => array('type'=>'text', 'name' => $value['bhd']),
+                $value['sixMonthPackage']."_4" => array('type'=>'text', 'name' => $value['sixMonthPackage']),
             );
             $rowActionsAry['config'][]['tr'] = array('style'=>$userArry['plan']->getId()==$value['id']?"background-color: #b1d2b1;":"");
             $actionsList[] = array('View Details' => array('name' => 'info', 'link' => 'new-users?id=' . $value['id']), 'Activate' => array('name' => 'danger', 'link' => '#'));

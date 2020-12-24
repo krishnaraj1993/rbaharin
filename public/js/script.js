@@ -78,9 +78,39 @@ $(document).ready(function () {
             }
         });
     });
+    $('#addToFeaturedList').click(function () {
+        $.ajax({
+            url: "/application/add-to-featured-list/" + $(this).data('id'), success: function (result) {
+                swal("plan updated successfully");
+                $('.dataTable tr').removeAttr('style');
+                obj.css('background-color', '#b1d2b1');
+
+            }
+        });
+    });
+    $('.delete-assets').click(function () {
+        var obj = $(this);
+        $.ajax({
+            url: "/application/delete-assets/" + $(this).data('id'), success: function (result) {
+                swal("Asset deleted successfully");
+                $(this).parent('td').parent('tr').remove();
+            }
+        });
+    });
+
+    $('.product_activitaion').change(function () {
+        var status = $(this).prop("checked")?1:0;
+        var urlstring = "/api/properties/" + $(this).attr('id')+'/status/'+status;
+        $.ajax({
+            url: urlstring, success: function (result) {
+                swal("Status updated successfully");
+            }
+        });
+    });
+
+
     $('.planUpdate-btn').click(function () {
         var obj = $(this).closest('tr');
-        console.log(obj);
         $.ajax({
             url: "approve-plan/" + $(this).data('plan') + "/" + $(this).data('user'), success: function (result) {
                 swal("plan updated successfully");
@@ -91,7 +121,16 @@ $(document).ready(function () {
         });
     });
 
+    $('.deleteProperty-btn').click(function () {
+        var obj = $(this).closest('tr');
+        $.ajax({
+            url: "/application/property/" + $(this).data('id') + "/delete", success: function (result) {
+                swal("Property deleted successfully");
+                $(this).parent('td').parent('tr').remove();
 
+            }
+        });
+    });
 });
 
 function refresh() {
@@ -160,7 +199,10 @@ function setimage(objFileInput) {
     if (objFileInput.files[0]) {
         var fileReader = new FileReader();
         fileReader.onload = function (e) {
-            $(".imageList").append('<img src="' + e.target.result + '" width="200px" height="200px" class="img-fluid mr-3" /><input type="hidden" value="' + e.target.result + '" name="assets[]">');
+            var sl = parseInt($('#imageCounts').val());
+            $('#imagelists tr:last').after('<tr><td>' + (sl + 1) + '</td><td><input type="number" value="' + (sl + 1) + '" style="width: 80%;"  name="assetsnumber[]"/></td><td><img src="' + e.target.result + '" width="100px" height="100px" class="img-fluid mr-3" /><input type="hidden" value="' + e.target.result + '" name="assets[]"></td><td><button type="button" class="btn btn-primary btn-sm">x</button></td></tr>');
+            //$(".imageList").append('<img src="' + e.target.result + '" width="200px" height="200px" class="img-fluid mr-3" /><input type="hidden" value="' + e.target.result + '" name="assets[]">');
+            $('#imageCounts').val(sl + 1);
         }
         fileReader.readAsDataURL(objFileInput.files[0]);
     }
